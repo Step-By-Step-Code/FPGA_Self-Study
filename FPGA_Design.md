@@ -50,6 +50,23 @@ case (<expression>)
 endcase 
 ```
 
+- **Ternary Operator**
+    - 회로적으로 MUX를 표현
+        - 2:1 MUX 4개 Gate
+        - 4:1 MUX 7개 Gate
+        - 8:1 MUX 15개 Gate
+
+```verilog
+    <result> = (<condition>) ? <value_if_true> : <value_if_false>;
+```
+
+- **Latch 설계**
+```verilog
+    always @(*) begin
+        if() statement;
+    end
+```
+
 - **여러 줄을 묶을 때**
 ```verilog
 if() begin
