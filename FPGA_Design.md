@@ -14,7 +14,7 @@
 6'o77     // 6비트 8진수: 111111 (decimal 63)
 ```
 -----------------------------------------------------
-## Condition
+## [IF문, Case문] Condition
 - **기본 if-else**
 ```verilog
 if (cond) 
@@ -34,6 +34,22 @@ else if (sel == 2'b10)
 else
     out = d;
 ```
+
+- 
+
+- **여러 줄을 묶을 때**
+```verilog
+if() begin
+end
+// --------------
+else if() begin
+end
+// --------------
+else begin
+end
+```
+
+
 
 1. **Blocking 할당 [ = ] : 조합논리에서 사용 (always @*)**
 2. **Non-Blocking 할당 [ <= ] : 순차로직에서 사용 (always @(posedge clk))**
