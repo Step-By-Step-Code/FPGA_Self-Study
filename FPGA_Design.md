@@ -35,7 +35,20 @@ else
     out = d;
 ```
 
-- 
+- **CASE문**
+```verilog
+case (<expression>)
+    <value1>: begin
+        // statement
+    end
+    <value2>: begin
+        // statement
+    end
+    default: begin
+        // statement
+    end
+endcase 
+```
 
 - **여러 줄을 묶을 때**
 ```verilog
