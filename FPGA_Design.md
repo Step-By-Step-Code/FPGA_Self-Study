@@ -1,6 +1,38 @@
+## Backtick[`] 사용하는 경우
+1. 매크로 정의/호출
+```verilog
+`define WIDTH 8
+
+module my_module;
+  reg [`WIDTH-1:0] data;   // = reg [7:0] data;
+endmodule
+```
+
+2. 조건부 컴파일
+```verilog
+`define DEBUG
+
+module test;
+  initial begin
+`ifdef DEBUG
+    $display("Debug mode ON");
+`endif
+  end
+endmodule
+```
+
+3. include
+```verilog
+`include "my_header.vh"
+```
+
+-----------------------------------------------------------------------------------
+
+
 ## 숫자 표현방식
 - [비트수]'[기수][값]
     - 비트수: 표현할 비트 폭 (optional)
+    - ' 작은 따옴표 사용
     - 기수(radix):
         - b → 2진수 (binary)
         - o → 8진수 (octal)
@@ -14,7 +46,16 @@
 6'o77     // 6비트 8진수: 111111 (decimal 63)
 ```
 -----------------------------------------------------
-## [IF문, Case문] Condition
+## [IF문, Case문, Ternary Operator] Condition
+
+| 특징            | if-else / 삼항 연산자    | case                 |
+| ------------- | ------------------- | -------------------- |
+| **우선순위**      | 있음 | 없음|
+| **조건 평가 방식**  | 순차적 (위 → 아래)        | 병렬적                  |
+| **하드웨어 구현**   | 우선순위 인코더 (MUX 체인)   | n:1 멀티플렉서            |
+| **적합한 사용 사례** | 우선순위가 중요한 경우        | 상호 배타적인 여러 분기를 처리할 때 |
+
+
 - **기본 if-else**
 ```verilog
 if (cond) 
@@ -36,6 +77,7 @@ else
 ```
 
 - **CASE문**
+    - default는 설계의 안정상 있는 것이 좋음
 ```verilog
 case (<expression>)
     <value1>: begin
@@ -79,10 +121,14 @@ else begin
 end
 ```
 
+- **DEMUX 구현**
+
 
 
 1. **Blocking 할당 [ = ] : 조합논리에서 사용 (always @*)**
+    - 즉시 업데이트
 2. **Non-Blocking 할당 [ <= ] : 순차로직에서 사용 (always @(posedge clk))**
+    - 시간 단계 끝에서 업데이트
 
 
 -----------------------------------------------------------------------
