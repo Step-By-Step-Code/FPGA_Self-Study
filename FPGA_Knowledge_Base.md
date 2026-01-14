@@ -79,3 +79,40 @@
 - 2 Input Nand Gate : 4개의 레지스터
 - F/F, SRAM 은  Random Access 해도 Performance Drop 발생 안함
     - DRAM은 Random Access에 물리적인 제약이 있다.
+
+---------------------------------------------------------
+
+# BRAM : Xilinx에서 SRAM 역할을 하도록 만든 Primitive Cell
+    - Interface와 동작을 이해하는 것이 중요
+    - 파생 메모리들이 많음, 사용 전 문서 꼭 읽어보기
+## BRAM의 종류
+### Single Port [SPRAM]
+- 메모리를 W/R 하기위한 Port 한 개
+    - 1 Cycle 동안 W/R 가능, 하지만 동시에 W/R 불가능
+- 현업에서 많이 사용
+
+### Dual Port RAM [DPRAM]
+- 메모리를 W/R 하기위한 Port 두 개
+    - 1 Cycle 동안 동시에 W/R 가능 [RR, W/R, WW 가능]
+- 2 Port의 클락을 다르게 받기 때문에 CDC[Clock Domain Crossing] 가능
+- Area 큼 → Single Port로 사용가능하다면 Single Port가 작아서 유리
+
+### 메모리의 내부 모양 Width와 Depth
+![메모리 사진](./Pictures/Memory_Abstract.png)
+
+- 저장 Size : Width x Depth
+- Width : 한 사이클에 접근하는 Data 크기
+- Depth : Address를 통해 접근하는 Data 개수
+
+### BRAM의 제어 방법 [A Port 기준]
+- clka [Input] : 포트 A 동작은 이 클럭에 동기화.
+    - clkb와 같다면 같은 클록 도메인에서 동작하는 동기램이 된다.
+- addra [Input] : W/R 을 위한 메모리 공간
+    - Data 영역에 접근하기 위해 쓰임
+- dina [Input] : 포트 A로 기록될 데이터 입력
+- douta [Output] : 포트 A 읽기 연산을 통해 메모리에서 나온 데이터 출력
+- ena [Input] : 읽기/쓰기/리셋 연산을 가능하게 함
+- wea [Input] : 포트 A를 통한 쓰기 연산을 가능하게 함
+
+### **FPGA에서 SRAM 대신 BRAM [Block RAM] Component 사용**
+    - FPGA의 BRAM과 ASIC의 SRAM 사용하는 방법 유사[응용의 문제]
